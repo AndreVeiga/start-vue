@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue - Campeonato Brasileiro 2018</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilo.css" />
+</head>
+
+<body>
+    <div id="app" class='container'>
+        <div class='row'>
+            <h1>Campeonato Brasileiro Série A - 2018</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" @click='createGame'>
+                    Novo jogo
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12" v-show="!isShowTable">
+                <form class="form-inline">
+                    <img class='escudo' :src="newGame.casa.time.escudo ? newGame.casa.time.escudo : ''" alt="">
+                    {{newGame.casa.time.nome}}
+                    <input type="text" class='form-control col-md-1' v-model='newGame.casa.gols' />
+                    <span> X </span>
+                    <input type="text" class='form-control col-md-1' v-model='newGame.fora.gols' />
+                    {{newGame.fora.time.nome}}
+                    <img class='escudo' :src="newGame.fora.time.escudo ? newGame.fora.time.escudo : ''" alt="">
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" @click='endGame'>
+                            Fim jogo
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" v-show="isShowTable">
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Pontos</th>
+                            <th>Gols Marcados</th>
+                            <th>Gols Sofridos</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='time in timesOrdenados'>
+                            <th>
+                                <img class='escudo' :src="time.escudo" alt="escudo do time">
+                                {{ time.nome }}
+                            </th>
+                            <th>{{ time.pontos }}</th>
+                            <th>{{ time.golsMarcados }}</th>
+                            <th>{{ time.golsSofridos }}</th>
+                            <th>{{ time.saldo }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Times classificados para Libertadores da América</h3>
+                <ul>
+                    <li v-for='time in timesLibertadores'>
+                        <img class='escudo' :src="time.escudo" alt="escudo do time">
+                        {{ time.nome }}
+                    </li>
+                </ul>
+
+                <h3>Times rebaixados para Série B</h3>
+                <ul>
+                    <li v-for='time in timesRebaixados'>
+                        <img class='escudo' :src="time.escudo" alt="escudo do time">
+                        {{ time.nome }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>   
+    <script src="./vue.js"></script>
+</body>
+
+</html>
