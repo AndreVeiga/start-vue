@@ -1,2 +1,4 @@
 # start-vue
-Aplicação inicial de VueJS.
+Aplicação em VueJS para placar de futebol.
+
+Começando com VueJS!
